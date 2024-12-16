@@ -7,17 +7,6 @@ services:
       dockerfile: Newsletter.Api/Dockerfile
     ports:
       - "5001:443"
-  # newsletter-db:
-  #   image: postgres:13
-  #   container_name: Newsletter.Db
-  #   environment:
-  #     POSTGRES_USER: loc-pg-user
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: NewsDb
-  #   volumes:
-  #     - dbdata:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
   newsletter-db:
     image: postgres:14.15-alpine3.21
     container_name: Newsletter.Db2
