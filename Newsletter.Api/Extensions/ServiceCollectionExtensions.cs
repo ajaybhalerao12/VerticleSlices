@@ -2,10 +2,14 @@
 using Newsletter.Api.Database;
 
 namespace Newsletter.Api.Extensions
-{
+{   
     public static class ServiceCollectionExtensions
     {
-
+        public static IServiceCollection AddNSwagServices(this IServiceCollection services)
+        {
+            services.AddOpenApiDocument();
+            return services;
+        }
         public static IServiceCollection AddDbContext(this IServiceCollection services, 
             IConfiguration configuration)
         {
