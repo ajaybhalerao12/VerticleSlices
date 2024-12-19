@@ -22,7 +22,8 @@ namespace Newsletter.Api.Extensions
         public static IHealthChecksBuilder AddPostgreSQLHealthCheck(this IHealthChecksBuilder services,
             IConfiguration configuration)
         {
-            services.AddNpgSql(configuration.GetConnectionString("DefaultConnection"));
+            services.AddNpgSql(configuration
+                .GetConnectionString("DefaultConnection"));
             return services;
         }
     }

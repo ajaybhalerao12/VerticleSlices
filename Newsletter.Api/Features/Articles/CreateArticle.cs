@@ -52,8 +52,6 @@ namespace Newsletter.Api.Features.Articles
 
             app.MapGroup("/hello")
                 .MapGet("/", () => "Get all");
-
-            app.MapGet("/", () => "Hello World!");
             app.MapPost("/api/articles", async ([FromBody] CreateArticleRequest request, ISender sender) =>
             {
                 //var cmd = new CreateArticle.Command()
