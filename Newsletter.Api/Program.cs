@@ -1,11 +1,12 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Newsletter.Api.Extensions;
-using System.Reflection.Metadata;
-
+using Newsletter.Api.Features.Articles;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddMediatR(config =>
+    config.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 builder.Services
     .AddDbContext(builder.Configuration)
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.AddRoutes();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
