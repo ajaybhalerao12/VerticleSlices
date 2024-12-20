@@ -7,18 +7,19 @@ namespace Newsletter.Api.Features.Articles
 {
     public class DeleteArticle
     {
-        public class Command : IRequest<Result<Guid>>
+        public class DeleteCommand : IRequest<Result<Guid>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler(ApplicationDbContext DbContext) : IRequestHandler<Command, Result<Guid>>
+        public class DeleteHandler(ApplicationDbContext DbContext) : IRequestHandler<DeleteCommand, Result<Guid>>
         {
 
-            public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Guid>> Handle(DeleteCommand request, CancellationToken cancellationToken)
             {
                 var articleResponse = await DbContext
-                    .Articles.FirstOrDefaultAsync(article => article.Id == request.Id,cancellationToken);
+                    .Articles
+                    .FirstOrDefaultAsync(article => article.Id == request.Id,cancellationToken);
 
                 if (articleResponse is null)
                 {
@@ -26,9 +27,8 @@ namespace Newsletter.Api.Features.Articles
                         "The article with the specified ID was not found"));
                 }
                 DbContext.Articles.Remove(articleResponse);
-                await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync(cancellationToken);
                 return articleResponse.Id;
-
             }
         }
     }
@@ -39,8 +39,8 @@ namespace Newsletter.Api.Features.Articles
         {
             app.MapDelete("api/articles/{id}", async (Guid id,ISender sender) =>
             {
-                var query = new DeleteArticle.Command() { Id = id };
-                var result = await sender.Send(query);
+                var deleteCommand = new DeleteArticle.DeleteCommand() { Id = id };
+                var result = await sender.Send(deleteCommand);
                 if (result.IsFailure)
                 {
                     return Results.BadRequest(result.Error);

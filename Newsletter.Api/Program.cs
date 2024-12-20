@@ -28,6 +28,7 @@ app.UseHttpsRedirection();
 CreateArticleEndpoint.AddRoutes(app);
 GetArticleEndpoint.AddRoutes(app);
 DeleteArticleEndpoint.AddRoutes(app);
+UpdateRequestEndpoint.AddRoutes(app);
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {

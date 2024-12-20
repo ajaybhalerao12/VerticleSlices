@@ -12,10 +12,9 @@ namespace Newsletter.Api.Database
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Article>(builder =>
-           builder.OwnsOne(a => a.Tags,
-           tagsBuilder => tagsBuilder.ToJson()));
+               builder.OwnsOne(a => a.Tags,
+               tagsBuilder => tagsBuilder.ToJson()));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
