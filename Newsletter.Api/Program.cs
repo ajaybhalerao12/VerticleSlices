@@ -27,6 +27,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 CreateArticleEndpoint.AddRoutes(app);
 GetArticleEndpoint.AddRoutes(app);
+DeleteArticleEndpoint.AddRoutes(app);
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
